@@ -30,13 +30,16 @@ describe "Ceedling" do
     end
 
     xit "should verify style of all Ruby files" do
-      #expect(@output).to match(/temp_sensor/)
       command = "rubocop " \
                 "./bin ./config ./examples ./lib ./plugins ./spec " \
                 #"--auto-correct " \       # Enable this line to attempt to autocorrect
                 #"--auto-gen-config " \    # Enable this line to attempt to update todo list
                 "--config vendor/unity/test/.rubocop.yml"
-      puts `#{command}`
+
+      @output = `#{command}`
+
+      expect($?.exitstatus).to match(0)
+      expect(@output).to match(/0 offenses detected/)
     end
   end
 
@@ -49,14 +52,17 @@ describe "Ceedling" do
     end
 
     xit "should verify style of C and header files" do
-      #expect(@output).to match(/temp_sensor/)
       command = "AStyle " \
               "--style=allman --indent=spaces=4 --indent-switches --indent-preproc-define --indent-preproc-block " \
               "--pad-oper --pad-comma --unpad-paren --pad-header " \
               "--align-pointer=type --align-reference=name " \
               "--add-brackets --mode=c --suffix=none " \
               "./assets/*.* examples/**/*.*"
-      puts `#{command}`
+
+      @output = `#{command}`
+
+      expect($?.exitstatus).to match(0)
+      #expect(@output).to match(/temp_sensor/)
     end
   end
 end
