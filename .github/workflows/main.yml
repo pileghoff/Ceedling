@@ -17,7 +17,8 @@ on:
       - 'master'
       - 'test/**'
   pull_request:
-    branches: [ master ]
+    branches: 
+      - 'master'
   workflow_dispatch:
 
 jobs:
